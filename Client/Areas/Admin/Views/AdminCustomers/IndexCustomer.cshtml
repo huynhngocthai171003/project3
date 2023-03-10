@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Client.Models.Customer>
+
+@{
+    ViewData["Title"] = "IndexCustomer";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+<h1>Customer</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassWord)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassWord)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
+
+</div>
+</div>

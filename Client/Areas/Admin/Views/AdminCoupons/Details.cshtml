@@ -1,0 +1,41 @@
+﻿@model Client.Models.Coupon
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+<h1>Details</h1>
+
+<div>
+    <h4>Coupon</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Limit)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Limit)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+            <a asp-action="IndexCoupon">Back to List</a>
+</div>
+</div>
+</div>

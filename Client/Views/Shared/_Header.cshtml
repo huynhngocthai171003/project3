@@ -1,0 +1,134 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<style>
+    .m_tag1 > a {
+        color: white !important;
+        font-weight: bold !important;
+    }
+
+    .m_tag {
+        line-height: 35px
+    }
+
+    li {
+        height: 70px !important
+    }
+
+</style>
+<section id="menu" class="clearfix cd-secondary-nav">
+    <nav class="navbar nav_t">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><i class="fa fa-wrench"></i> <span class="col_1">Auto</span> Ancilaries Limited</a>
+            </div>
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+
+                    <li class="m_tag @(ViewContext.RouteData.Values["Action"].ToString()=="Index"?"active_tab":"")">
+                        <span class="m_tag1">@Html.ActionLink("Home", "Index", "Home", new {}, new { })</span>
+                    </li>
+                    <li class="m_tag @(ViewContext.RouteData.Values["Action"].ToString()=="IndexProduct"?"active_tab":"")">
+                        <span class="m_tag1">@Html.ActionLink("Product", "IndexProduct", "Product", new {}, new { })</span>
+                    </li>
+
+                    @*<li><a class="m_tag" asp-controller="Product" asp-action="Category">Category</a></li>
+                    <li class="dropdown">
+                    <a class="m_tag" href="#" data-toggle="dropdown" role="button" aria-expanded="false">Category<span class="caret"></span></a>
+                    <ul class="dropdown-menu drop_3" role="menu">*@
+                    @*@if (Model != null)
+                    {
+                    @foreach (var item1 in Model)
+                    {
+                    <li><a asp-action="Category" asp-route-Id="@item1.Id" asp-controller="Product">@item1.Name</a></li>
+                    }
+                    }*@
+
+                    <li class="m_tag @(ViewContext.RouteData.Values["Action"].ToString()=="IndexAbout"?"active_tab":"")">
+                        <span class="m_tag1">@Html.ActionLink("About", "IndexAbout", "About", new {}, new { })</span>
+                    </li>
+
+                    <li class="m_tag @(ViewContext.RouteData.Values["Action"].ToString()=="IndexContact"?"active_tab":"")">
+                        <span class="m_tag1">@Html.ActionLink("Contact", "IndexContact", "Contact", new {}, new { })</span>
+                    </li>
+
+
+
+
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+</section>
+
+<section id="header">
+    <div class="container">
+        <div class="row">
+            <div class="header_1 clearfix">
+                <div class="col-sm-3">
+                    <div class="header_1l clearfix">
+                        <h3 class="mgt"><a asp-controller="Home" asp-action="Index"><span class="col_1">Auto</span> Ancilaries Limited</a></h3>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="header_1m clearfix">
+                        <form asp-action="FindProduct" asp-controller="Search" method="get">
+                            <div class="input-group">
+
+                                <input id="keyword" name="keyword" type="text" class="form-control" placeholder="Search">
+
+                                <span class="input-group-btn">
+                                    <input class="btn btn-primary" type="submit" value="SEARCH" />
+                                    @*<button class="btn btn-primary" type="button">
+                                    <i class="fa fa-search"></i>
+                                    </button>*@
+                                </span>
+                                @*<div id="records_table" class="results-box">
+                                </div>*@
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="header_1r clearfix">
+                    <ul class="nav navbar-nav mgt navbar-right">
+                        @*                        <li><a asp-controller="Wishlist" asp-action="Index" class="tag_m1"><i class="fa fa-heart-o"></i></a></li>
+                        *@
+                        <li class="dropdown">
+                            <a class="tag_m1" href="/Order" ><i class="glyphicon glyphicon-shopping-cart"></i></a>
+
+
+                        </li>
+
+                        @{
+                            var check = HttpContextAccessor.HttpContext.Session.GetString("Username");
+
+                            @if (check != null)
+                            {
+                                <li>
+                                    <a class="tag_m1" asp-action="logout" asp-controller="Login"><i class="fa fa-sign-out"></i></a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li><a class="tag_m1" asp-controller="Login" asp-action="Index"><i class="fa fa-user"></i></a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

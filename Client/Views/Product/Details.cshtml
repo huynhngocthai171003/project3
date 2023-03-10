@@ -1,0 +1,434 @@
+﻿@model Client.Models.Comment
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> lsProduct = ViewBag.SanPham;
+    //List<Comment> lsComment = ViewBag.Comment;
+}
+<link href="~/js/bootstrap-rating.css" rel="stylesheet">
+<script type="text/javascript" src="~/js/bootstrap-rating.js"></script>
+
+<link href="~/Assets/User/Home/css/detail.css" rel="stylesheet">
+<link href="~/Assets/User/Home/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/Assets/User/Home/css/global.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="~/Assets/User/Home/css/font-awesome.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+<script src="~/Assets/User/Home/js/jquery-2.1.1.min.js"></script>
+<script src="~/Assets/User/Home/js/bootstrap.min.js"></script>
+
+<style>
+    .star-rating {
+        font-size: 0;
+        white-space: nowrap;
+        display: inline-block;
+        width: 500px;
+        height: 50px;
+        overflow: hidden;
+        position: relative;
+        background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+        background-size: contain;
+    }
+
+        .star-rating i {
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 10%;
+            z-index: 1;
+            background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+            background-size: contain;
+        }
+
+        .star-rating input {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            opacity: 0;
+            display: inline-block;
+            width: 10%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            z-index: 2;
+            position: relative;
+        }
+
+            .star-rating input:hover + i,
+            .star-rating input:checked + i {
+                opacity: 1;
+            }
+
+        .star-rating i ~ i {
+            width: 20%;
+        }
+
+            .star-rating i ~ i ~ i {
+                width: 30%;
+            }
+
+                .star-rating i ~ i ~ i ~ i {
+                    width: 40%;
+                }
+
+                    .star-rating i ~ i ~ i ~ i ~ i {
+                        width: 50%;
+                    }
+
+                        .star-rating i ~ i ~ i ~ i ~ i ~ i {
+                            width: 60%;
+                        }
+
+                            .star-rating i ~ i ~ i ~ i ~ i ~ i ~ i {
+                                width: 70%;
+                            }
+
+                                .star-rating i ~ i ~ i ~ i ~ i ~ i ~ i ~ i {
+                                    width: 80%;
+                                }
+
+                                    .star-rating i ~ i ~ i ~ i ~ i ~ i ~ i ~ i ~ i {
+                                        width: 90%;
+                                    }
+
+                                        .star-rating i ~ i ~ i ~ i ~ i ~ i ~ i ~ i ~ i ~ i {
+                                            width: 100%;
+                                        }
+                        
+
+    ::after,
+    ::before {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+</style>
+
+<section id="shop_detail">
+    <div class="container">
+        <div class="row">
+            <div class="shop_detail_1 clearfix">
+                <div class="col-sm-6">
+                    <div class="center_detail_2_left clearfix">
+                        <div class="carousel slide article-slide" id="article-photo-carousel">
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner cont-slider">
+
+                                <div class="item active">
+                                    <div class="mag">
+                                        <div class="magnify"><div class="magnify"><img src="~/images/@ViewBag.Product.Avatar" alt="abc" class="iw"><div class="magnify-large" style="background: url(&quot;img/53.jpg&quot;) no-repeat;"></div></div><div class="magnify-large"></div></div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="mag">
+                                        <div class="magnify"><div class="magnify"><img src="~/images/@ViewBag.Product.Image1" alt="abc" class="iw"><div class="magnify-large" style="background: url(&quot;img/54.jpg&quot;) no-repeat;"></div></div><div class="magnify-large"></div></div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="mag">
+                                        <div class="magnify"><div class="magnify"><img src="~/images/@ViewBag.Product.Image2" alt="abc" class="iw"><div class="magnify-large" style="background: url(&quot;img/55.jpg&quot;) no-repeat;"></div></div><div class="magnify-large"></div></div>
+                                    </div>
+                                </div>
+                                <div class="item ">
+                                    <div class="mag">
+                                        <div class="magnify"><div class="magnify"><img src="~/images/@ViewBag.Product.Image3" alt="abc" class="iw"><div class="magnify-large" style="background: url(&quot;img/56.jpg&quot;) -101px -21px no-repeat; display: block; left: 17px; top: -27.5px; opacity: 0;"></div></div><div class="magnify-large"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li class="active" data-slide-to="0" data-target="#article-photo-carousel">
+                                    <img src="~/images/@ViewBag.Product.Avatar" alt="abc" class="iw">
+                                </li>
+                                <li class="" data-slide-to="1" data-target="#article-photo-carousel">
+                                    <img src="~/images/@ViewBag.Product.Image1" alt="abc" class="iw">
+                                </li>
+                                <li class="" data-slide-to="2" data-target="#article-photo-carousel">
+                                    <img src="~/images/@ViewBag.Product.Image2" alt="abc" class="iw">
+                                </li>
+                                <li class="" data-slide-to="3" data-target="#article-photo-carousel">
+                                    <img src="~/images/@ViewBag.Product.Image3" alt="abc" class="iw">
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="center_detail_2_right clearfix">
+                        <h3 class="mgt"> @ViewBag.Product.ProductName</h3>
+                        <h5 class="col_1">
+                            
+                            @for (var i = 0; i < ViewBag.Product.Rate; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                            @*<a href="#">( @ViewBag.CountReview reviewer )</a>*@
+                        </h5>
+                        @{
+                            int discount = ViewBag.Product.Price - 3000;
+                        }
+                        <h4><span class="span_1">$@discount.ToString("#,##0")</span> <span class="span_2 col_1">$@ViewBag.Product.Price.ToString("#,##0")</span></h4>
+                        <p>@ViewBag.Product.Description</p>
+                        <hr>
+                        <h4>Available Options</h4>
+                        <h5>Category:</h5>
+                        <ul>
+                            <li>
+                                <a asp-action="Category" asp-route-Id="@ViewBag.Product.Category.Id" asp-controller="Product">@ViewBag.Product.Category.Name</a>
+                            </li>
+                        </ul>
+                        <h5>Quantity:</h5>
+                        <div class="input-group number-spinner">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+                            </span>
+                            <input type="text" class="form-control text-center" value="1">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+                            </span>
+                        </div>
+                        <div class="pd_n1 clearfix">
+                            <h4><a class="button" href="/addcart/@ViewBag.Product.Id" >ADD TO CART</a></h4>
+                            @*<form action="/WishlistController/Add" method="post" id="signInForm">
+                            <h4 class="add-to-wish">
+                            <input hidden asp-for="Id" />
+                            <input type="submit" value="ADD TO WISHLIST" class="button_1" />
+                            @*<a class="button_1" href="#"> ADD TO WISHLIST</a>
+
+                            </h4>
+                            </form>*@
+
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="product_detail_1 clearfix">
+                <ul class="nav nav-tabs tab_1">
+                    @*<li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-globe"></i> Description</a></li>*@
+                    <li class="active"><a data-toggle="tab" href="#menu2"><i class="fa fa-cog"></i> Product Review</a></li>
+                    <li class=""><a data-toggle="tab" href="#menu1"><i class="fa fa-photo"></i> Additional Information</a></li>
+
+                </ul>
+                <div class="tab-content clearfix">
+                    @*<div id="home" class="tab-pane fade clearfix active in">
+                    <div class="click clearfix">
+                    <div class="col-sm-12">
+                    <div class="home_i">
+                    <p class="mgt">Web design lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                    <p>Suspendisse et justo. Praesent mattis commyolk augue Aliquam ornare hendrerit augue Cras tellus In pulvinar lectus a est Curabitur eget orci Cras laoreet. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commyolk augue aliquam ornare augue.</p>
+                    <p>"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"</p>
+                    <ul>
+                    <li>"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and</li>
+                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</li>
+                    <li>t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here'</li>
+                    <li>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</li>
+                    <li>Dorem ipsum dolor sit amet</li>
+                    </ul>
+                    </div>
+                    </div>
+                    </div>
+                    </div>*@
+                    <div id="menu2" class="tab-pane fade clearfix active in">
+                        <div class="click clearfix">
+                            <div class="col-sm-12">
+                                <div class="menu1i clearfix">
+                                   
+                                        @if (ViewBag.Comment == null)
+                                        {
+                                            <p>Loi</p>
+                                        }
+                                        else{
+                                            @foreach (var com in ViewBag.Comment)
+                                            {
+                                            <div class="menu1ii mgt clearfix">
+                                                <div class="col-sm-9">
+                                                    <img class="thumbnail" src="~/images/slider/tl.png" alt="abc">
+                                                    <h5><span class="bold"></span>@com.Customer.UserName</h5>
+                                                    <p>@com.Content</p>
+                                                </div>
+                                                <div class="col-sm-3 text-right">
+                                                    <span class="">
+
+                                                        @for (var i = 0; i < com.Rate; i++)
+                                                        {
+                                                            <i class="fa fa-star"></i>
+                                                        }
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        }
+                                        
+                                        
+                                    }
+                                    
+                                    
+                                    @{
+                                        var s = HttpContextAccessor.HttpContext.Session.GetInt32("Username");
+
+                                        @if (s == null)
+                                        {
+                                            <h3><a class="tag_m1 text-danger" asp-controller="Login" asp-action="Index">Login to post your comments</a></h3>
+                                        }
+                                        else
+                                        {
+                                            <form asp-action="Send" asp-controller="Product" method="post">
+                                                <div class="menu1i1 clearfix">
+                                                    <div class="col-sm-6 space_left">
+                                                        <h4>ADD A REVIEW</h4>
+
+                                                        <h5>Your Review</h5>
+                                                        <span class="star-rating">
+                                                            <input type="radio" name="rating" id="rating" value="1"><i></i>
+                                                            <input type="radio" name="rating" id="rating" value="2"><i></i>
+                                                            <input type="radio" name="rating" id="rating" value="3"><i></i>
+                                                            <input type="radio" name="rating" id="rating" value="4"><i></i>
+                                                            <input type="radio" name="rating" id="rating" value="5"><i></i>
+
+                                                        </span>
+                                                        <textarea asp-for="@Model.Content" class="form-control form_1"></textarea>
+                                                        <div class="form-group bg">
+                                                            <input type="submit" value="Post" class="btn btn-primary" />
+                                                            <input hidden asp-for="@Model.ProductId">
+                                                        </div>
+                                                        @*<h5 class="bg"><a class="button" href="#">Submit</a></h5>*@
+                                                        
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <div class="grid clearfix">
+                                                            <figure class="effect-jazz">
+                                                                <a href="#"><img src="~/images/slider/comment.png" alt="abc" class="iw"></a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        }
+                                    }
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu1" class="tab-pane fade clearfix ">
+                        <div class="click clearfix">
+                            <div class="col-sm-12">
+                                <div class="menu_i clearfix">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Pricing</td>
+                                                <td>$@ViewBag.Product.Price.ToString("#,##0")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Stock Availability</td>
+                                                <td>AVAILABLE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rating</td>
+                                                <td>
+                                                    <span>
+                                                        @for (var i = 0; i < ViewBag.Product.Rate; i++)
+                                                        {
+                                                            <i class="fa fa-star"></i>
+                                                        }
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="sell_n">
+    <div class="container">
+        <div class="row">
+            <div class="sell_1_o clearfix">
+                <div class="col-sm-5 space_left sell_1_ol">
+                    <h2 class="mgt">Comparable Product</h2>
+                    <hr>
+                </div>
+                <div class="col-sm-7 space_left">
+                    <!-- Controls -->
+                    <div class="clearfix sell_1_or text-right">
+                    </div>
+                </div>
+            </div>
+            <div class="sell_o_1 clearfix">
+                @if (lsProduct != null)
+                {
+                    @foreach (var item in lsProduct)
+                    {
+                        string url = $"/{item.Avatar}-{item.Id}.html";
+                        <div class="col-sm-3 space_left">
+                            <div class="arriv_2m clearfix">
+                                <div class="arriv_2m1 clearfix">
+                                    <a href="@url"><img style="width:280px; height:280px" src="~/images/@item.Avatar" alt="abc" class="iw"></a>
+                                </div>
+                                <div class="arriv_2m2 clearfix">
+                                    <h5 class="text-center mgt">New</h5>
+                                </div>
+                                <div class="arriv_2m2n clearfix">
+                                    <h5 class="text-center mgt">Sale</h5>
+                                </div>
+                                <div class="arriv_2m3 clearfix">
+                                    <h4 class="bold mgt">@(item.ProductName.Length > 10 ? item.ProductName.Substring(0, 15) + "..." : item.ProductName)</h4>
+                                    <p><a href="@url">@(item.Description.Length > 10 ? item.Description.Substring(0, 40) + "..." : item.Description)</a></p>
+                                    <span class="span_1">
+                                        @for (var i = 0; i < item.Rate; i++)
+                                        {
+                                            <i class="fa fa-star"></i>
+                                        }
+                                    </span>
+                                    <h3 class="normal">
+                                        @{
+                                            var discount1 = @item.Price - 3000;
+                                        }
+                                        @*<span class="span_2">@discount1.ToString("#,##0")</span>*@
+                                        <span class="span_3 col_1"> $@item.Price.ToString("#,##0")</span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <script>
+        var logID = 'log',
+            log = $('<div id="' + logID + '"></div>');
+        $('body').append(log);
+        $('[type*="radio"]').change(function () {
+            var me = $(this);
+            log.html(me.attr('value'));
+        });
+
+    </script>
+            }

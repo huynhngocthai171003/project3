@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Auto Ancilaries Limited</title>
+	<link href="~/LogoWeb.png" rel="icon">
+	<link href="~/Assets/User/Home/css/bootstrap.min.css" rel="stylesheet">
+	<link href="~/Assets/User/Home/css/global.css" rel="stylesheet">
+	<link href="~/Assets/User/Home/css/index.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="~/Assets/User/Home/css/font-awesome.min.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+	<script src="~/Assets/User/Home/js/jquery-2.1.1.min.js"></script>
+	<script src="~/Assets/User/Home/js/bootstrap.min.js"></script>
+</head>
+
+
+<body>
+
+	@*Header*@
+	@await Html.PartialAsync("_Header.cshtml")
+	@*@Html.PartialAsync("~/Views/Shared/_Header.cshtml")*@
+	@*@{
+		Html.RenderPartial("_Header");
+	}*@
+	
+	@*@Html.Action("_Header", "Home")*@
+	@*Header*@
+	@RenderBody();
+	@*Footer*@
+	@await Html.PartialAsync("_Footer.cshtml")
+	@*Footer*@
+	
+
+	<script>
+		$(document).ready(function () {
+			/*****Fixed Menu******/
+			var secondaryNav = $('.cd-secondary-nav'),
+				secondaryNavTopPosition = secondaryNav.offset().top;
+			$(window).on('scroll', function () {
+				if ($(window).scrollTop() > secondaryNavTopPosition) {
+					secondaryNav.addClass('is-fixed');
+				} else {
+					secondaryNav.removeClass('is-fixed');
+				}
+			});
+
+		});
+	</script>
+	@*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>*@
+	@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

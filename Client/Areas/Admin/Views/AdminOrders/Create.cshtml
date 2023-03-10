@@ -1,0 +1,73 @@
+﻿@model Client.Models.Order
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <h1>Create</h1>
+
+        <h4>Order</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ProductId" class="control-label"></label>
+                        <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerId" class="control-label"></label>
+                        <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" class="form-control" />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        <input asp-for="Status" class="form-control" />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TotalPrice" class="control-label"></label>
+                        <input asp-for="TotalPrice" class="form-control" />
+                        <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PaymentTerm" class="control-label"></label>
+                        <input asp-for="PaymentTerm" class="form-control" />
+                        <span asp-validation-for="PaymentTerm" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OrderDate" class="control-label"></label>
+                        <input asp-for="OrderDate" class="form-control" />
+                        <span asp-validation-for="OrderDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="IndexOrder">Back to List</a>
+        </div>
+
+    </div>
+</div>
+

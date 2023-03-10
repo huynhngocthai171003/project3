@@ -1,0 +1,55 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<Client.Models.Comment>;
+
+@{
+    ViewData["Title"] = "IndexComment";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <h1>Comment by Customers</h1>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr>
+                            
+                            <th scope="col">Product</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Content</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                
+                                <td>
+                                    <img class="center" src="~/images/@item.Product.Avatar" style="width:150px; height:auto" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div aria-label="Page navigation example" style="padding-top:40px">
+                    <ul class="pagination">
+                        <pager class="pager-container" list="@Model" asp-area="Admin"  asp-controller="AdminComments" asp-action="IndexComment" />
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

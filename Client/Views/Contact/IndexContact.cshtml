@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewData["Title"] = "IndexContact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/global.css" rel="stylesheet">
+<link href="css/contact.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<section id="contact" class="clearfix">
+	<div class="container">
+		<div class="row">
+			<div class="contact_1  clearfix">
+				<div class="col-sm-8">
+					<div class="contact_1lm clearfix">
+						<div class="contact_1l clearfix">
+							<h4 class="col_1 mgt">Get in touch</h4>
+							<h3>Write Us A Message</h3>
+						</div><br>
+						<div class="checkout_1l1 clearfix">
+							<div class="col-sm-6 space_left">
+								<h5>Your Name <span class="col_3">*</span></h5>
+								<input class="form-control" type="text">
+							</div>
+							<div class="col-sm-6 space_left">
+								<h5>Your Subjects <span class="col_3">*</span></h5>
+								<input class="form-control" type="text">
+							</div>
+						</div>
+						<div class="checkout_1l1 clearfix">
+							<div class="col-sm-6 space_left">
+								<h5>Your Email<span class="col_3">*</span></h5>
+								<input class="form-control" type="text">
+							</div>
+							<div class="col-sm-6 space_left">
+								<h5>Your Phone <span class="col_3">*</span></h5>
+								<input class="form-control" type="text">
+							</div>
+						</div>
+						<div class="checkout_1l1 clearfix">
+							<div class="col-sm-12 space_left">
+								<h5>Your Message <span class="col_3">*</span></h5>
+								<textarea class="form-control form_1"></textarea>
+								<h6><a class="button" href="#">SEND MESSAGE</a></h6>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="contact_1rm clearfix">
+						<div class="contact_1r1 mgt clearfix">
+							@*<span><i class="fa fa-phone"></i></span>*@
+							<h4>Call us Now:</h4>
+							<p>(84) 355 854 104</p>
+
+						</div>
+						<div class="contact_1r1 clearfix">
+							@*<span><i class="fa fa-phone"></i></span>*@
+							<h4>Email:</h4>
+							<p class="mgt">a_a_limited@gmail.com</p>
+						</div>
+						<div class="contact_1r1 clearfix">
+							@*<span><i class="fa fa-phone"></i></span>*@
+							<h4>Our Address:</h4>
+							<p>590 Cach mang thang 8, Quan 3</p>
+							<p class="mgt">Ho Chi Minh, Viet Nam</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="contact_2 clearfix">
+				<div class="col-sm-12">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15677.277406156589!2d106.65751952421206!3d10.786834677030395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ed2392c44df%3A0xd2ecb62e0d050fe9!2zRlBUIEFwdGVjaCBIQ00gLSBI4buHIFRo4buRbmcgxJDDoG8gVOG6oW8gTOG6rXAgVHLDrG5oIFZpw6puIFF14buRYyBU4bq_IChTaW5jZSAxOTk5KQ!5e0!3m2!1svi!2s!4v1635179994748!5m2!1svi!2s" width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+$(document).ready(function(){
+	/*****Fixed Menu******/
+	var secondaryNav = $('.cd-secondary-nav'),
+	   secondaryNavTopPosition = secondaryNav.offset().top;
+		$(window).on('scroll', function(){
+			if($(window).scrollTop() > secondaryNavTopPosition ) {
+				secondaryNav.addClass('is-fixed');	
+			} else {
+				secondaryNav.removeClass('is-fixed');
+			}
+		});	
+		
+});
+</script>
+

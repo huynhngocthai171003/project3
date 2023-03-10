@@ -1,0 +1,165 @@
+﻿@model Client.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+   
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #C81313;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #C81313;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+</style>
+
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <h3><a asp-action="Details" asp-controller="AdminProducts" class="mb-0">DETAIL PRODUCT</a></h3>
+        <hr />
+        <div>
+            <dl class="row">
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    @Html.DisplayFor(model => model.ProductName)
+                </dd>
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Rate)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    @Html.DisplayFor(model => model.Rate)
+                </dd>
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Avatar)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    <img class="center" src="~/images/@Html.DisplayFor(model => model.Avatar)" style="width:150px; height:auto" />
+                </dd>
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Image1)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    <img class="center" src="~/images/@Html.DisplayFor(model => model.Image1)" style="width:150px; height:auto" />
+                </dd>
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Image2)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    <img class="center" src="~/images/@Html.DisplayFor(model => model.Image2)" style="width:150px; height:auto" />
+                </dd>
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Image3)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    <img class="center" src="~/images/@Html.DisplayFor(model => model.Image3)" style="width:150px; height:auto" />
+                </dd>
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    @if (Model.Status == true)
+                    {
+                        <i style="font-size:40px; color:#C81313" class="fa fa-check" aria-hidden="true"></i>
+                    }
+                    else
+                    {
+
+                        <i style="font-size:40px" class="fa fa-times " aria-hidden="true"></i>
+
+                    }
+                    @*<div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        <label class="switch">
+                            <input type="checkbox" asp-for="Status">
+                            <span class="slider round"></span>
+
+                        </label>
+                    </div>*@
+                    @*@Html.DisplayFor(model => model.Status)*@
+                </dd>
+                <dt style="padding: 10px 0 10px 0;" class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Category)
+                </dt>
+                <dd style="padding: 10px 0 10px 0;" class="col-sm-10">
+                    @Html.DisplayFor(model => model.Category.Name)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            
+            <a asp-action="IndexProduct">Back to List</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<div class="sidebar pe-4 pb-3">
+    <nav class="navbar bg-secondary navbar-dark">
+        <a asp-action="Index" asp-controller="Home" class="navbar-brand mx-4 mb-3">
+            <h3 class="text-primary">Auto Ancilaries</h3>
+        </a>
+        <div class="d-flex align-items-center ms-4 mb-4">
+            <div class="position-relative">
+                <img class="rounded-circle" src="~/Assets/Admin/Home/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+            </div>
+            <div class="ms-3">
+                @{
+                    string name = HttpContextAccessor.HttpContext.Session.GetString("UsernameAdmin");
+                    
+                    <h6 class="mb-0">@name</h6>
+                    <span>
+                        Admin
+                    </span>
+                }
+            </div>
+        </div>
+        <div class="navbar-nav w-100">
+            <ul>
+                <li class="nav-item nav-link @(ViewContext.RouteData.Values["Action"].ToString()=="IndexDashboard"?"active":"")">
+                    <i class="fa fa-tachometer-alt me-2"></i> @Html.ActionLink("Home", "IndexDashboard", "Home", new { area = "Admin"}, new { })
+                </li>
+                <li class="nav-item nav-link @(ViewContext.RouteData.Values["Action"].ToString()=="Index"?"active":"")">
+                    <i class="fa fa-gift me-2"></i> @Html.ActionLink("Product", "Index", "AdminProducts", new { area = "Admin"}, new { })
+                </li>
+                <li class="nav-item nav-link @(ViewContext.RouteData.Values["Action"].ToString()=="IndexCategory"?"active":"")">
+                    <i class="fa fa-list-ul me-2"></i> @Html.ActionLink("Category", "IndexCategory", "AdminCategories", new { area = "Admin"}, new { })
+                </li>
+
+                <li class="nav-item nav-link @(ViewContext.RouteData.Values["Action"].ToString()=="IndexCustomer"?"active":"")">
+                    <i class="fa fa-users me-2"></i>@Html.ActionLink("Customer", "IndexCustomer", "AdminCustomers", new { area = "Admin"}, new { })
+                </li>
+                <li class="nav-item nav-link @(ViewContext.RouteData.Values["Action"].ToString()=="IndexComment"?"active":"")">
+                    <i class="fa fa-comments me-2"></i> @Html.ActionLink("Comment", "IndexComment", "AdminComments", new { area = "Admin"}, new { })
+                </li>
+                <li class="nav-item nav-link @(ViewContext.RouteData.Values["Action"].ToString()=="IndexStock"?"active":"")">
+                    <i class="fa fa-archive me-2"></i> @Html.ActionLink("Stock", "IndexStock", "AdminStocks", new { area = "Admin"}, new { })
+                </li>
+                <li class="nav-item nav-link @(ViewContext.RouteData.Values["Action"].ToString()=="IndexOrder"?"active":"")">
+                    <i class="fa fa-shopping-cart me-2"></i> @Html.ActionLink("Order", "IndexOrder", "AdminOrders", new { area = "Admin"}, new { })
+                </li>
+                <li class="nav-item nav-link @(ViewContext.RouteData.Values["Action"].ToString()=="IndexStaff"?"active":"")">
+                    <i class="fa fa-user me-2"></i> @Html.ActionLink("Staff", "IndexStaff", "AdminStaffs", new { area = "Admin"}, new { })
+                </li>
+            </ul>
+            @*            <a asp-action="Index" asp-controller="Home" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+            *@            @*<div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-product-hunt me-2"></i>Product</a>
+            <div class="dropdown-menu bg-transparent border-0">
+            <a href="button.html" class="dropdown-item">Buttons</a>
+            <a href="typography.html" class="dropdown-item">Typography</a>
+            <a href="element.html" class="dropdown-item">Other Elements</a>
+            </div>
+            </div>
+            *@
+            @*   <a asp-action="Index" asp-controller="AdminProducts" class="nav-item nav-link"><i class="fab fa-product-hunt me-2"></i>Product</a>
+            <a asp-action="Index" asp-controller="AdminCategories" class="nav-item nav-link"><i class="fa fa-list-ul me-2"></i>Category</a>
+            <a asp-action="Index" asp-controller="AdminCoupons" class="nav-item nav-link"><i class="fa fa-gift me-2"></i>Coupon</a>
+            <a asp-action="Index" asp-controller="AdminCustomers" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Customer</a>
+            <a asp-action="Index" asp-controller="AdminComments" class="nav-item nav-link"><i class="fa fa-comments me-2"></i>Comment</a>
+            <a asp-action="Index" asp-controller="AdminStocks" class="nav-item nav-link"><i class="fa fa-archive me-2"></i>Stock</a>
+            <a asp-action="Index" asp-controller="AdminOrders" class="nav-item nav-link"><i class="fa fa-shopping-cart me-2"></i>Order</a>
+            *@
+            @*<div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+            <div class="dropdown-menu bg-transparent border-0">
+            <a href="signin.html" class="dropdown-item">Sign In</a>
+            <a href="signup.html" class="dropdown-item">Sign Up</a>
+            <a href="404.html" class="dropdown-item">404 Error</a>
+            <a href="blank.html" class="dropdown-item">Blank Page</a>
+            </div>
+            </div>*@
+        </div>
+    </nav>
+</div>
+
+
+
+
+

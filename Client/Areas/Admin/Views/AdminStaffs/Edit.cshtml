@@ -1,0 +1,53 @@
+﻿@model Client.Models.Staff
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <h1>Edit</h1>
+
+        <h4>Staff</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input asp-for="UserName" class="form-control" readonly />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PassWord" class="control-label"></label>
+                        <input asp-for="PassWord" class="form-control" />
+                        <span asp-validation-for="PassWord" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Role" class="control-label"></label>
+                        <select asp-for="Role" class="form-control">
+                            <option ></option>
+                        </select>
+                        <input asp-for="Role" class="form-control" />
+                        <span asp-validation-for="Role" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="IndexStaff">Back to List</a>
+        </div>
+
+    </div>
+</div>

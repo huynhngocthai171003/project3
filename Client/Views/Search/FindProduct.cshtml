@@ -1,0 +1,156 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<Client.Models.Product>;
+@{
+    Category category = ViewBag.CurrentCat;
+    ViewData["Title"] = "Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Assets/User/Home/css/shop.css" rel="stylesheet">
+<link href="~/Assets/User/Home/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/Assets/User/Home/css/global.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="~/Assets/User/Home/css/font-awesome.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+<script src="~/Assets/User/Home/js/jquery-2.1.1.min.js"></script>
+<script src="~/Assets/User/Home/js/bootstrap.min.js"></script>
+
+<style>
+    .p {
+        padding-bottom: 40px
+    }
+
+    /*.page-link{
+                                                            background-color: #C81313;
+                                                        }*/
+    .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+        background-color: #C81313 !important;
+        border-color: #C81313 !important;
+    }
+
+    .product_1_last ul li {
+        /*width: 0px !important;
+                                                        height: 0px !important;*/
+    }
+</style>
+
+
+<section id="shop">
+    <div class="container">
+        <div class="row">
+            <div class="shop_1 clearfix">
+                <div class="col-sm-3">
+                    <div class="shop_1lm clearfix">
+
+                        <div class="product_1l clearfix">
+                            <h4 class="mgt">CATEGORIES</h4>
+                            <hr>
+                            @foreach (var item1 in ViewBag.Category)
+                            {
+                                <h5><i class="fa fa-dot-circle-o" aria-hidden="true"><a asp-action="Category" asp-route-Id="@item1.Id" asp-controller="Product">@item1.Name</a></i> </h5>
+                            }
+                        </div>
+
+                        <div class="product_1l clearfix">
+                            <h4 class="mgt">Recent Post</h4>
+                            <hr>
+                            <div class="product_1li clearfix">
+                                @foreach (var post in ViewBag.Post)
+                                {
+                                    string url = $"/{post.Product.Avatar}-{post.Product.Id}.html";
+                                    <a href="@url"><img style="width:70px; height:70px" src="~/images/@post.Product.Avatar" alt="abc" class="iw"></a>
+                                    <h5 class="mgt"><a href="url">@post.Content</a> <br>@post.Product.Price.ToString("#,##0")</h5>
+                                    <span>
+                                        @for (var i = 0; i < post.Rate; i++)
+                                        {
+                                            <i class="fa fa-star"></i>
+                                        }
+                                    </span>
+                                }
+
+                            </div>
+
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <img src="~/images/slider/PRODUCT.png" />
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-9">
+                    <div class="product_1rm clearfix">
+                        @*<div class="product_1r clearfix">
+                        @if(category.Id != null){
+                        <h5 style="text-transform:uppercase; color: #C81313" class="mgt">@category.Name</h5>
+                        }
+
+                        </div>*@
+                        <div class="sell_o_1 clearfix">
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    string url = $"/{item.Avatar}-{item.Id}.html";
+                                    <div class="col-sm-4 p">
+                                        <div class="arriv_2m clearfix">
+                                            <div class="arriv_2m1 clearfix">
+                                                <a href="@url"><img src="~/images/@item.Avatar" alt="abc" class="iw"></a>
+                                            </div>
+                                            <div class="arriv_2m2 clearfix">
+                                                <h5 class="text-center mgt">New</h5>
+                                            </div>
+                                            <div class="arriv_2m2n clearfix">
+                                                <h5 class="text-center mgt">Sale</h5>
+                                            </div>
+                                            <div class="arriv_2m3 clearfix">
+                                                <h4 class="bold mgt">@(item.ProductName.Length > 10 ? item.ProductName.Substring(0, 15) + "..." : item.ProductName)</h4>
+                                                <p><a href="@url">@(item.Description.Length > 10 ? item.Description.Substring(0, 40) + "..." : item.Description)</a></p>
+                                                <span class="span_1">
+
+                                                    @for (var i = 0; i < item.Rate; i++)
+                                                    {
+                                                        <i class="fa fa-star"></i>
+                                                    }
+                                                </span>
+                                                <h3 class="normal">
+                                                    @*@{
+                                            int discount = @item.Price - 3000;
+                                            }*@
+                                                    @* <span class="span_2">@discount.ToString("#,##0")</span>*@
+                                                    <span class="span_3 col_1">$@item.Price.ToString("#,##0")</span>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+
+                        </div>
+
+
+                        <div class="product_1_last text-center clearfix">
+                            <div class="col-sm-12">
+                                <div class="pagination-area pt-10">
+                                    <ul class="pagination justify-content-center">
+                                        <pager class="pager-container" list="@Model" asp-area="" asp-controller="Product" asp-action="IndexProduct" />
+                                    </ul>
+                                </div>
+                                @*<ul>
+                                <li class="act"><a href="detail.html">1</a></li>
+                                <li><a href="detail.html">2</a></li>
+                                <li><a href="detail.html">3</a></li>
+                                <li><a href="detail.html">4</a></li>
+                                <li><a href="detail.html">5</a></li>
+                                <li><a href="detail.html">6</a></li>
+                                <li><a href="detail.html"><i class="fa fa-chevron-right"></i></a></li>
+                                </ul>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,89 @@
+﻿@model Client.Models.Cart;
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- catg header banner section -->
+<section id="aa-catg-head-banner">
+    <div class="aa-catg-head-banner-area">
+        <div class="container">
+            <div class="aa-catg-head-banner-content">
+                <h2>Your Cart</h2>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / catg header banner section -->
+<!-- Cart view section -->
+<section id="cart-view">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-view-area">
+                    <div class="cart-view-table aa-wishlist-table">
+                        <form action="">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Amount</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int total = 0;
+                                            string cart = HttpContextAccessor.HttpContext.Session.GetString("Cart");
+                                            var listCart = JsonConvert.DeserializeObject<List<Cart>>(cart);
+                                            int totalQuantity = 0;
+                                            @foreach (var item in listCart)
+                                            {
+                                                int amount = item.product.Price * item.quantity;
+                                                total += amount;
+                                                totalQuantity += item.quantity;
+                                                <tr>
+                                                    <td><a class="remove" href="/removecart/@item.product.Id"><fa class="fa fa-close"></fa></a></td>
+                                                    <td><a href="#"><img style="width:70px; height:70px" src="~/images/@item.product.Avatar" alt="abc" class="iw"></a></td>
+                                                    <td><a class="aa-cart-title" href="#">@item.product.ProductName</a></td>
+                                                    <td><a class="aa-cart-title" href="#">@item.quantity</a></td>
+                                                    <td>$@item.product.Price</td>
+                                                    <td>$@amount</td>
+
+                                                </tr>
+
+                                            }
+                                            <div>
+                                                <p>Total Price: @total
+                                                </p>
+                                            </div>
+                                            HttpContextAccessor.HttpContext.Session.SetInt32("TotalPrice", total);
+                                            HttpContextAccessor.HttpContext.Session.SetInt32("TotalQuantity", totalQuantity);
+                                        }
+
+                                    </tbody>
+                                </table>
+                                <div class="CheckOut" style="text-align:right">
+                                    <button type="submit" class="btn btn-sm"><a href="/checkout">CheckOut</a></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / Cart view section -->

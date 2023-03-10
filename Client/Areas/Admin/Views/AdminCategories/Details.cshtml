@@ -1,0 +1,28 @@
+﻿@model Client.Models.Category
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <h3><a asp-action="Details" asp-controller="AdminCategories" class="mb-0">DETAIL CATEGORY</a></h3>
+        <hr />
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    
+            <a asp-action="IndexCategory">Back to List</a>
+</div>
+</div>
+</div>

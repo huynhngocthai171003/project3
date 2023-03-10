@@ -1,0 +1,92 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<Client.Models.Product>
+
+@{
+    ViewData["Title"] = "IndexStock";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                @*<select class="form-select" style="width:200px" id="txtCatID" name="txtCatID" asp-items="ViewBag.Categories1">
+                    <option selected>Select category</option>
+                    <option value="all">All</option>
+                </select>*@
+                @*<p class="mb-0 btn btn-sm btn-primary">@ViewBag.Count</p>*@
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-white">
+                            <th scope="col">ProductName</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            Random rand = new Random();
+                            var amount = rand.Next(100, 200);
+
+                            <tr>
+
+                                <td>@item.ProductName</td>
+                                <td>@item.Category.Name <img /></td>
+                                <td><img class="center" src="~/images/@item.Avatar" style="width:150px; height:auto" /></td>
+                                <td>150</td>
+                                <td>
+
+                                    <a asp-action="Edit" asp-controller="AdminStocks" asp-route-id="@item.Id"><i style="font-size:50px" class="fa fa-cog"></i></a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div aria-label="Page navigation example" style="padding-top:40px">
+                    <ul class="pagination">
+                        <pager class="pager-container" list="@Model" asp-area="Admin" asp-route-CatID="@ViewBag.CurrentCateID" asp-controller="AdminStocks" asp-action="IndexStock" />
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            jQuery("#txtCatID").change(function () {
+                var catID = jQuery(this).children(":selected").attr("value");
+                catID = parseFloat(catID);
+                $('#txtCatID option')
+                    .removeAttr('selected');
+                $("#txtCatID > [value=" + catID + "]").attr("selected", "true");
+                $.ajax({
+                    url: '/Admin/AdminStocks/Filter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        CatID: catID
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+
+                });
+            });
+        });
+    </script>
+}

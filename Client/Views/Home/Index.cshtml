@@ -1,0 +1,607 @@
+﻿@model List<Client.Models.Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>
+
+<style>
+    import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Rubik:300,400,500,700,900');
+
+    * {
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
+        text-shadow: rgba(0, 0, 0, .01) 0 0 1px
+    }
+
+    .owl-carousel > img {
+        width: 200px !important
+    }
+
+    body {
+        font-family: 'Rubik', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        background: #eff6fa;
+        color: #000000
+    }
+
+    div {
+        display: block;
+        position: relative;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box
+    }
+
+
+
+
+    .bbb_viewed {
+        padding-top: 51px;
+        padding-bottom: 60px;
+        background: #eff6fa
+    }
+
+    .bbb_main_container {
+        background-color: #fff;
+        padding: 11px;
+    }
+
+    .bbb_viewed_title_container {
+        border-bottom: solid 1px #dadada
+    }
+
+    .bbb_viewed_title {
+        margin-bottom: 16px;
+        margin-top: 8px;
+    }
+
+    .bbb_viewed_nav_container {
+        position: absolute;
+        right: -5px;
+        bottom: 14px
+    }
+
+    .bbb_viewed_nav {
+        display: inline-block;
+        cursor: pointer
+    }
+
+        .bbb_viewed_nav i {
+            color: #dadada;
+            font-size: 18px;
+            padding: 5px;
+            -webkit-transition: all 200ms ease;
+            -moz-transition: all 200ms ease;
+            -ms-transition: all 200ms ease;
+            -o-transition: all 200ms ease;
+            transition: all 200ms ease
+        }
+
+        .bbb_viewed_nav:hover i {
+            color: #606264
+        }
+
+    .bbb_viewed_prev {
+        margin-right: 15px
+    }
+
+    .bbb_viewed_slider_container {
+        padding-top: 13px;
+    }
+
+    .bbb_viewed_item {
+        width: 100%;
+        background: #FFFFFF;
+        border-radius: 2px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-left: 30px;
+        padding-right: 30px
+    }
+
+    .bbb_viewed_image {
+        width: 150px;
+        height: 150px;
+    }
+
+        .bbb_viewed_image img {
+            display: block;
+            max-width: 100%
+        }
+
+    .bbb_viewed_content {
+        width: 100%;
+        margin-top: 25px
+    }
+
+    .bbb_viewed_price {
+        font-size: 16px;
+        color: #000000;
+        font-weight: 500
+    }
+
+    .bbb_viewed_item.discount .bbb_viewed_price {
+        color: #df3b3b
+    }
+
+    .bbb_viewed_price span {
+        position: relative;
+        font-size: 12px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.6);
+        margin-left: 8px
+    }
+
+        .bbb_viewed_price span::after {
+            display: block;
+            position: absolute;
+            top: 6px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: 1px;
+            background: #8d8d8d;
+            content: ''
+        }
+
+    .bbb_viewed_name {
+        margin-top: 3px
+    }
+
+        .bbb_viewed_name a {
+            font-size: 14px;
+            color: #000000;
+            -webkit-transition: all 200ms ease;
+            -moz-transition: all 200ms ease;
+            -ms-transition: all 200ms ease;
+            -o-transition: all 200ms ease;
+            transition: all 200ms ease
+        }
+
+            .bbb_viewed_name a:hover {
+                color: #0e8ce4
+            }
+
+    .item_marks {
+        position: absolute;
+        top: 18px;
+        left: 18px
+    }
+
+    .item_mark {
+        display: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        color: #FFFFFF;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 36px;
+        text-align: center
+    }
+
+    .item_discount {
+        background: #df3b3b;
+        margin-right: 5px
+    }
+
+    .item_new {
+        background: #0e8ce4
+    }
+
+    .bbb_viewed_item.discount .item_discount {
+        display: inline-block
+    }
+
+    .bbb_viewed_item.is_new .item_new {
+        display: inline-block
+    }
+</style>
+
+<section id="center" class="clearfix center_home">
+    <div class="container">
+        <div class="row">
+            <div class="center_home_1 clearfix">
+                <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="col-sm-6">
+                                <div class="center_home_l clearfix">
+                                    <h4 class="mgt">On Sale This Week</h4>
+                                    <h1>Get the Right Part at the Right Price for the Comfort of Your Vehicle</h1>
+                                    <hr>
+                                    <p>Plakrore maheten. Astronens ultranirad. Dod</p>
+                                    <h5 class="normal"><a class="button" asp-controller="Product" asp-action="IndexProduct">Shopping Now</a></h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="center_home_r clearfix">
+                                    <img src="~/images/slider/slider-01.png" class="iw" alt="abc">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item ">
+                            <div class="col-sm-6">
+                                <div class="center_home_l clearfix">
+                                    <h4 class="mgt">The Week Only for World Premier</h4>
+                                    <h1>When Buying Parts With Installation </h1>
+                                    <hr>
+                                    <p>Installation of parts in the services of, our partners. Limited time offer for only new customer, also get free shipping on orders.</p>
+                                    <h5 class="normal"><a class="button" href="">Shopping Now</a></h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="center_home_r clearfix">
+                                    <img src="~/images/slider/slider-02.png" class="iw" alt="abc">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-sm-6">
+                                <div class="center_home_l clearfix">
+                                    <h4 class="mgt">Get The Best Auto Parts</h4>
+                                    <h1>We Make Car Repair Hassle Free</h1>
+                                    <hr>
+                                    <p>Installation of parts in the services of, our partners. Limited time offer for only new customer, also get free shipping on orders.</p>
+                                    <h5 class="normal"><a class="button" href="#">Shopping Now</a></h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="center_home_r clearfix">
+                                    <img src="~/images/slider/slider-03.png" class="iw" alt="abc">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sell_1 clearfix">
+
+                    <div class="col-sm-12">
+                        <!-- Controls -->
+                        <div class="controls text-center">
+                            <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example" data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-success" href="#carousel-example" data-slide="next"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="Categ">
+    <div class="container">
+        <div class="row">
+            @* <div class="Categ_1 clearfix">
+            <div class="col-sm-12">
+            <h3 class="mgt">Popular Categories</h3>
+            <hr>
+            </div>
+            </div>*@
+            <div class="bbb_viewed_title_container">
+                <div class="Categ_1 clearfix">
+                    <div class="col-sm-12">
+                        <h3 class="mgt">Popular Categories</h3>
+                        @*<h3 class="bbb_viewed_title">Best selling products</h3>*@
+                        <div class="bbb_viewed_nav_container">
+                            <div class="bbb_viewed_nav bbb_viewed_prev"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+                            <div class="bbb_viewed_nav bbb_viewed_next"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+
+            </div>
+            <div class="Categ_2 clearfix bbb_viewed_slider_container">
+                <div class="owl-carousel owl-theme bbb_viewed_slider">
+
+                    @foreach (var item in ViewBag.Category)
+                    {
+                        <div class="Categ_2i clearfix">
+                            <div class="">
+                                @*<img src="~/Assets/User/Home/img/5.jpg" alt="abc">*@
+                                @*<a href="#"><img src="~/Assets/User/Home/img/5.jpg" alt="abc"></a>*@
+                                @*<h4><a href="#">Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</a></h4>*@
+                                <h4 class="mgt"><a asp-action="Category" asp-route-Id="@item.Id" asp-controller="Product">@(item.Name.Length > 15 ? item.Name.Substring(0, 15) + "..." : item.Name)</a></h4>
+                                <hr style="border-color: #ea1c26">
+                            </div>
+                        </div>
+                    }
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="collection">
+    <div class="container">
+        <div class="row">
+            <div class="collect_1 clearfix">
+                <div class="col-sm-4">
+                    <div class="collect_1l clearfix">
+                        <div class="col-sm-5 space_all">
+                            <div class="collect_1ll clearfix">
+                                <h4 class="mgt col_2">New Tools</h4>
+                                <h3>20% Off</h3>
+                                <h6><a asp-controller="Product" asp-action="IndexProduct"> Shop Now</a></h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 space_right">
+                            <div class="collect_1lr clearfix">
+                                <a asp-controller="Product" asp-action="IndexProduct"><img src="~/images/slider/banner-08.png" alt="abc" class="iw"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="collect_1l clearfix">
+                        <div class="col-sm-5 space_all">
+                            <div class="collect_1ll clearfix">
+                                <h4 class="mgt col_2">New Tools</h4>
+                                <h3>30% Off</h3>
+                                <h6><a asp-controller="Product" asp-action="IndexProduct"> Shop Now</a></h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 space_right">
+                            <div class="collect_1lr clearfix">
+                                <a asp-controller="Product" asp-action="IndexProduct"><img src="~/images/slider/banner-09.png" alt="abc" class="iw"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="collect_1l clearfix">
+                        <div class="col-sm-5 space_all">
+                            <div class="collect_1ll clearfix">
+                                <h4 class="mgt col_2">New Tools</h4>
+                                <h3>40% Off</h3>
+                                <h6><a asp-controller="Product" asp-action="IndexProduct"> Shop Now</a></h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 space_right">
+                            <div class="collect_1lr clearfix">
+                                <a asp-controller="Product" asp-action="IndexProduct"><img src="~/images/slider/banner-10.png" alt="abc" class="iw"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="sell">
+    <div class="container">
+        <div class="row">
+            <div class="sell_1_o clearfix">
+                <div class="col-sm-5 space_left sell_1_ol">
+                    <h2 class="mgt">New Arrivals</h2>
+                    <hr>
+                </div>
+                <div class="col-sm-7 space_left">
+                    <!-- Controls -->
+                    <div class="clearfix sell_1_or text-right">
+                        <ul class="nav_1_tab">
+                            <li class="active"><a data-toggle="tab" href="#home">NEW </a></li>
+                            <li><a data-toggle="tab" href="#menu2">POPULAR </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content clearfix">
+                <div id="home" class="tab-pane fade  clearfix active in">
+                    <div class="click clearfix">
+                        <div class="sell_o_1 clearfix">
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    string url = $"/{item.Avatar}-{item.Id}.html";
+                                    <div class="col-sm-3 space_left">
+
+                                        <div class="arriv_2m clearfix">
+                                            <div class="arriv_2m1 clearfix">
+                                                <a href="@url"><img style="width:280px; height:280px" src="~/images/@item.Avatar" alt="abc" class="iw"></a>
+                                            </div>
+                                            <div class="arriv_2m2 clearfix">
+                                                <h5 class="text-center mgt">New</h5>
+                                            </div>
+                                            <div class="arriv_2m2n clearfix">
+                                                <h5 class="text-center mgt">Sale</h5>
+                                            </div>
+                                            <div class="arriv_2m3 clearfix">
+                                                <h4 class="bold mgt">@(item.ProductName.Length > 10 ? item.ProductName.Substring(0, 15) + "..." : item.ProductName)</h4>
+                                                <p><a href="@url">@(item.Description.Length > 10 ? item.Description.Substring(0, 30) + "..." : item.Description)</a></p>
+                                                <span class="span_1">
+
+                                                    @for (var i = 0; i < item.Rate; i++)
+                                                    {
+                                                        <i class="fa fa-star"></i>
+                                                    }
+                                                </span>
+                                                <h3 class="normal">
+                                                    @*@{
+                                            int discount = @item.Price - 3000;
+                                            }*@
+                                                    @* <span class="span_2">@discount.ToString("#,##0")</span>*@
+                                                    <span class="span_3 col_1">$@item.Price.ToString("#,##0")</span>
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div id="menu2" class="tab-pane fade  clearfix">
+                    <div class="click clearfix">
+                        <div class="sell_o_1 clearfix">
+                            @if (ViewBag.Popular != null)
+                            {
+                                foreach (var item in ViewBag.Popular)
+                                {
+                                    
+
+                                        string url = $"/{item.Avatar}-{item.Id}.html";
+                                        <div class="col-sm-3 space_left">
+
+                                            <div class="arriv_2m clearfix">
+                                                <div class="arriv_2m1 clearfix">
+                                                    <a href="@url"><img src="~/images/@item.Avatar" alt="abc" class="iw"></a>
+                                                </div>
+                                                <div class="arriv_2m2 clearfix">
+                                                    <h5 class="text-center mgt">New</h5>
+                                                </div>
+                                                <div class="arriv_2m2n clearfix">
+                                                    <h5 class="text-center mgt">Sale</h5>
+                                                </div>
+                                                <div class="arriv_2m3 clearfix">
+                                                    <h4 class="bold mgt">
+                                                        @(
+                                                            item.ProductName.Length > 10 ? item.ProductName.Substring(0, 15) + "..." : item.ProductName
+                                                            )
+                                                    </h4>
+                                                    <p>
+                                                        <a href="@url">
+                                                            @(
+                                                                item.Description.Length > 10 ? item.Description.Substring(0, 30) + "..." : item.Description
+                                                                )
+                                                        </a>
+                                                    </p>
+                                                    <span class="span_1">
+
+                                                        @for (var i = 0; i < item.Rate; i++)
+                                                        {
+                                                            <i class="fa fa-star"></i>
+                                                        }
+                                                    </span>
+                                                    <h3 class="normal">
+                                                        @*@{
+                                            int discount = @item.Price - 3000;
+                                            }*@
+                                                        @* <span class="span_2">@discount.ToString("#,##0")</span>*@
+                                                        <span class="span_3 col_1">$@item.Price.ToString("#,##0")</span>
+                                                    </h3>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="connect" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 space_all">
+                <div class="connect_1 clearfix">
+                    <div class="col-sm-3 connect_1m">
+                        <div class="connect_1l clearfix">
+                            <span><i class="fa fa-truck"></i></span>
+                        </div>
+                        <div class="connect_1r clearfix">
+                            <h4>Free Shipping</h4>
+                            <p>Free shipping world wide</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 connect_1m">
+                        <div class="connect_1l clearfix">
+                            <span><i class="fa fa-headphones"></i></span>
+                        </div>
+                        <div class="connect_1r clearfix">
+                            <h4>Support 24/7</h4>
+                            <p>Contact us 24 hours a day</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 connect_1m">
+                        <div class="connect_1l clearfix">
+                            <span><i class="fa fa-credit-card"></i></span>
+                        </div>
+                        <div class="connect_1r clearfix">
+                            <h4>Secure Payments</h4>
+                            <p>100% payment protection</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 connect_1m border_none">
+                        <div class="connect_1l clearfix">
+                            <span><i class="fa fa-shopping-cart"></i></span>
+                        </div>
+                        <div class="connect_1r clearfix">
+                            <h4>Easy Return</h4>
+                            <p>Simple returns policy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+
+            if ($('.bbb_viewed_slider').length) {
+                var viewedSlider = $('.bbb_viewed_slider');
+
+                viewedSlider.owlCarousel(
+                    {
+                        loop: true,
+                        margin: 30,
+                        autoplay: true,
+                        autoplayTimeout: 6000,
+                        nav: false,
+                        dots: false,
+                        responsive:
+                        {
+                            0: { items: 1 },
+                            575: { items: 2 },
+                            768: { items: 3 },
+                            991: { items: 4 },
+                            /*1199: { items: 6 }*/
+                        }
+                    });
+
+                if ($('.bbb_viewed_prev').length) {
+                    var prev = $('.bbb_viewed_prev');
+                    prev.on('click', function () {
+                        viewedSlider.trigger('prev.owl.carousel');
+                    });
+                }
+
+                if ($('.bbb_viewed_next').length) {
+                    var next = $('.bbb_viewed_next');
+                    next.on('click', function () {
+                        viewedSlider.trigger('next.owl.carousel');
+                    });
+                }
+            }
+
+
+        });
+    </script>
+}
+

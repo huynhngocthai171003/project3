@@ -1,0 +1,131 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<Client.Models.Product>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+</style>
+
+
+<div class="content">
+    <div class="container-fluid pt-4 px-4">
+
+        <div class="bg-secondary text-center rounded p-4">
+
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <select class="form-select" style="width:200px" id="txtCatID" name="txtCatID" asp-items="ViewBag.Categories">
+                    <option selected>Select category</option>
+                    <option value="all">All</option>
+                </select>
+                <a asp-action="Create" asp-controller="AdminProducts" class="mb-0 btn btn-sm btn-primary">Add Product</a>
+                @*<a href="">Show All</a>*@
+                @*<span>Page: @CurrentPage</span>*@
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-white">
+
+                            <th scope="col">ProductName</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            @foreach (var item in Model)
+                            {
+                                
+                                <tr>
+
+                                    <td>@item.ProductName</td>
+                                    <td>@item.Rate</td>
+                                    <td>$ @item.Price.ToString("#,##0")</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.Category.Name <img /></td>
+                                    <td><img class="center" src="~/images/@item.Avatar" style="width:150px; height:auto"/></td>
+                                    <td style="text-align:center">
+
+                                        @if (item.Status == true)
+                                        {
+                                            <i style="font-size:40px; color:#C81313" class="fa fa-check" aria-hidden="true"></i>
+                                        }
+                                        else
+                                        {
+
+                                            <i style="font-size:40px"  class="fa fa-times " aria-hidden="true"></i>
+
+                                        }
+                                        
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary" asp-controller="AdminProducts" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                        <a class="btn btn-sm btn-primary" asp-controller="AdminProducts" asp-action="Details" asp-route-id="@item.Id">Detail</a>
+                                        <a class="btn btn-sm btn-primary" asp-controller="AdminProducts" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+                <div aria-label="Page navigation example" style="padding-top:40px">
+                    <ul class="pagination">
+                        <pager class="pager-container" list="@Model" asp-area="Admin" asp-route-CatID="@ViewBag.CurrentCateID" asp-controller="AdminProducts" asp-action="Index" />
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            jQuery("#txtCatID").change(function () {
+                var catID = jQuery(this).children(":selected").attr("value");
+                catID = parseFloat(catID);
+                $('#txtCatID option')
+                    .removeAttr('selected');
+                $("#txtCatID > [value=" + catID + "]").attr("selected", "true");
+                $.ajax({
+                    url: '/Admin/AdminProducts/Filter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        CatID: catID
+                    },
+                    async: true,
+                    success: function (results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+
+                });
+            });
+        });
+    </script>
+}
